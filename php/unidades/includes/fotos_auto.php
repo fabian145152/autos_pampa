@@ -39,6 +39,7 @@ if (isset($_FILES['auto_f']) && isset($_FILES['auto_d'])) {
         }
     } else {
         echo "Solo se permiten archivos con formato JPG para las fotos del auto.";
+        echo "<br>";
     }
 } else {
     echo "Por favor, selecciona dos fotos para el auto.";

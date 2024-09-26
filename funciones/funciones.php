@@ -1,17 +1,6 @@
 <?php
-/* Lista de funciones:
-1_ conexion
-2_ Lee archivo de texto. udasa para actualizar la semana en la caja
-3_ foot pie de pagina
-4_ head encabezado de pagina
-5_ subrutina para subir al servidor archivos pdf titulo del auto
-6_ subrutina para subir imagenes en jpg o jpeg al servidor
-7_ subrutina para subir pdf al servidor licencia
 
 
-
-
-*/
 ## 1    conexion a la base de datos
 function conexion()
 {
@@ -73,193 +62,28 @@ function head()
 <?php
 }
 
-
-
-// 7     SUBRUTINA PARA SUBIT EL SEGURO EN PDF FRENTE.
-function seguro()
+function aviso10DiasAntes($fecha)
 {
-    $uploadDir = '../../images/';
+    // Fecha actual
+    $hoy = new DateTime();
 
-    // Verificar si la carpeta existe, si no, crearla
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
+    // Crear un objeto DateTime a partir de la fecha proporcionada
+    $fechaObjetivo = new DateTime($fecha);
+
+    // Restar 10 días a la fecha objetivo
+    $fechaAviso = clone $fechaObjetivo;
+    $fechaAviso->modify('-10 days');
+
+    // Comparar la fecha de aviso con la fecha actual
+    if ($hoy >= $fechaAviso && $hoy <= $fechaObjetivo) {
+        echo "<p style='color: red;'><strong>Ojo...$fecha</strong></p>";
+        //echo "Aviso: Faltan 10 días o menos para la fecha objetivo ($fecha).";
+    } /*else {
+        echo "No hay aviso, aún faltan más de 10 días o ya ha pasado la fecha objetivo.";
     }
-
-    // Verificar si los archivos han sido subidos correctamente
-    if (isset($_FILES['vtv_f'])) {
-        $file1 = $_FILES['vtv_f'];
-
-
-        // Validar que los archivos sean PDFs
-        $allowedTypes = ['application/pdf'];
-
-        if (in_array($file1['type'], $allowedTypes)) {
-            // Mover los archivos a la carpeta de destino
-            $file1Name = basename($file1['name']);
-
-            echo "<br>";
-            echo "Ruta de la VTV: " . $file1Path_seguro = $uploadDir . $file1Name;
-            echo "<br>";
-
-            if (move_uploaded_file($file1['tmp_name'], $file1Path_seguro)) {
-                echo "Archivos subido con éxito.<br>";
-                //echo "Archivo 1: <a href='$file1Path'>$file1Name</a><br>";
-                // echo "Archivo 2: <a href='$file2Path'>$file2Name</a>";
-            } else {
-                echo "Hubo un error al subir los archivos.";
-                echo "<br>";
-            }
-        } else {
-            echo "Para la VTV solo se permiten archivos PDF.";
-            echo "<br>";
-        }
-    } else {
-        echo "Por favor, sube dos archivos PDF.";
-        echo "<br>";
+        */
+    if ($hoy >= $fechaAviso && $hoy >= $fechaObjetivo) {
+        echo "<p style='color: red;'><strong>Ojo...$fecha</strong><br></p>";
+        echo "Aviso: se paso la fecha objetivo.";
     }
 }
-//------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-// 7     SUBRUTINA PARA SUBIR LA VTV EN PDF FRENTE 
-function vtv()
-{
-    $uploadDir = '../../images/';
-
-    // Verificar si la carpeta existe, si no, crearla
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    // Verificar si los archivos han sido subidos correctamente
-    if (isset($_FILES['seguro_f'])) {
-        $file1 = $_FILES['seguro_f'];
-
-
-        // Validar que los archivos sean PDFs
-        $allowedTypes = ['application/pdf'];
-
-        if (in_array($file1['type'], $allowedTypes)) {
-            // Mover los archivos a la carpeta de destino
-            $file1Name = basename($file1['name']);
-
-            echo "<br>";
-            echo "Ruta del seguro: " . $file1Path_vtv = $uploadDir . $file1Name;
-            echo "<br>";
-
-            if (move_uploaded_file($file1['tmp_name'], $file1Path_vtv)) {
-                echo "Archivos subido con éxito.<br>";
-                //echo "Archivo 1: <a href='$file1Path'>$file1Name</a><br>";
-                // echo "Archivo 2: <a href='$file2Path'>$file2Name</a>";
-            } else {
-                echo "Hubo un error al subir los archivos.";
-                echo "<br>";
-            }
-        } else {
-            echo "Para el seguro solo se permiten archivos PDF.";
-            echo "<br>";
-        }
-    } else {
-        echo "Por favor, sube dos archivos PDF.";
-        echo "<br>";
-    }
-}
-//------------------------------------------------------------------------------------------------------------------------------------
-
-##  FUNCION PARA SUBIR LA OBLEA DEL GAS EN PDF
-
-function gas()
-{
-    $uploadDir = '../../images/';
-
-    // Verificar si la carpeta existe, si no, crearla
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    // Verificar si los archivos han sido subidos correctamente
-    if (isset($_FILES['gas_f']) && isset($_FILES['gas_d'])) {
-        $file1 = $_FILES['gas_f'];
-        $file2 = $_FILES['gas_d'];
-
-        // Validar que los archivos sean PDFs
-        $allowedTypes = ['application/pdf'];
-
-        if (in_array($file1['type'], $allowedTypes) && in_array($file2['type'], $allowedTypes)) {
-            // Mover los archivos a la carpeta de destino
-            $file1Name = basename($file1['name']);
-            $file2Name = basename($file2['name']);
-            echo "<br>";
-            echo "Ruta de la oblea del gas: " . $file1Path_gas = $uploadDir . $file1Name;
-            echo "<br>";
-            echo "Ruta de la oblea del gas dorso: " . $file2Path_gas = $uploadDir . $file2Name;
-            echo "<br>";
-
-            if (move_uploaded_file($file1['tmp_name'], $file1Path_gas) && move_uploaded_file($file2['tmp_name'], $file2Path_gas)) {
-                echo "Ambos archivos fueron subidos con éxito.<br>";
-                //echo "Archivo 1: <a href='$file1Path'>$file1Name</a><br>";
-                // echo "Archivo 2: <a href='$file2Path'>$file2Name</a>";
-            } else {
-                echo "Hubo un error al subir los archivos.";
-                echo "<br>";
-            }
-        } else {
-            echo "<br>";
-        }
-    } else {
-        echo "Por favor, sube dos archivos PDF.";
-        echo "<br>";
-    }
-}
-//------------------------------------------------------------------------------------------------------------------------------------
-
-
-##  FUNCION PARA SUBIR LA HABILITACION DE REMIS EN PDF.
-
-function hab_remis()
-{
-    $uploadDir = '../../images/';
-
-    // Verificar si la carpeta existe, si no, crearla
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    // Verificar si los archivos han sido subidos correctamente
-    if (isset($_FILES['hab_f']) && isset($_FILES['hab_d'])) {
-        $file1 = $_FILES['hab_f'];
-        $file2 = $_FILES['hab_d'];
-
-        // Validar que los archivos sean PDFs
-        $allowedTypes = ['application/pdf'];
-
-        if (in_array($file1['type'], $allowedTypes) && in_array($file2['type'], $allowedTypes)) {
-            // Mover los archivos a la carpeta de destino
-            $file1Name = basename($file1['name']);
-            $file2Name = basename($file2['name']);
-            echo "<br>";
-            echo "Ruta de la habilitacion de remis frente: " . $file1Path_hab = $uploadDir . $file1Name;
-            echo "<br>";
-            echo "Ruta de la habilitacion de remis dorso: " . $file2Path_hab = $uploadDir . $file2Name;
-            echo "<br>";
-
-            if (move_uploaded_file($file1['tmp_name'], $file1Path_hab) && move_uploaded_file($file2['tmp_name'], $file2Path_hab)) {
-                echo "Ambos archivos fueron subidos con éxito.<br>";
-                //echo "Archivo 1: <a href='$file1Path'>$file1Name</a><br>";
-                // echo "Archivo 2: <a href='$file2Path'>$file2Name</a>";
-            } else {
-                echo "Hubo un error al subir los archivos.";
-                echo "<br>";
-            }
-        } else {
-            echo "<br>";
-        }
-    } else {
-        echo "Por favor, sube dos archivos PDF.";
-        echo "<br>";
-    }
-}
-//------------------------------------------------------------------------------------------------------------------------------------

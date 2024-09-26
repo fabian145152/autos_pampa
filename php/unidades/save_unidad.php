@@ -5,8 +5,9 @@ $con->set_charset("utf8mb4");
 
 
 
-echo "Movil: " . $movil = $_POST['movil'];
-echo "<br>";
+$movil = $_POST['movil'];
+$dominio = $_POST['dominio'];
+$fecha_patente = $_POST['fecha_patente'];
 $marca = $_POST['marca'];
 $modelo = $_POST['modelo'];
 $color = $_POST['color'];
@@ -17,6 +18,7 @@ $fecha_vto_vtv = $_POST['fecha_vtv'];
 $fecha_vtv_renueva = $_POST['fecha_vtv_renueva'];
 $fecha_vto_gas = $_POST['fecha_gas'];
 $fecha_vto_hab = $_POST['fecha_h'];
+
 
 
 // SUBRUTINA PARA SUBIR IMAGEN AL SERVIDOR Y GUARDAR LA RUTA
@@ -42,7 +44,6 @@ include_once "includes/fotos_gas.php";
 
 ## SUBRUTINA PARA SUBIR LA HABILITACION DE REMIS EN PDF
 include_once "includes/fotos_habilitacion.php";
-
 
 
 $stmt = $con->prepare("INSERT INTO autos (numero, 
@@ -112,22 +113,10 @@ if ($stmt->execute()) {
 ?>
     <script>
         alert("producto ingresado")
-        /*window.location = "nueva_unidad.php";*/
+        window.location = "../../index.php";
     </script>
 <?php
 } else {
     echo "Error: " . $stmt->error;
     exit;
 }
-
-
-if ($stmt->execute()) {
-?>
-    <script>
-        alert("producto ingresado")
-        window.location = "insert_products.php";
-    </script>
-<?php
-
-}
-

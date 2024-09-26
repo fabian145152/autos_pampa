@@ -49,7 +49,7 @@ $con->set_charset("utf8mb4");
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">titulo_f_dominio.pdf</label>
-                                    <input type="file" class="form-control" accept="application/pdf" name="titulo_f" id="titulo_f" autofocus>
+                                    <input type="file" class="form-control" accept="application/pdf" name="titulo_f" id="titulo_f">
                                 </div>
                                 <div calss="form-group">
                                     <label class="control-label">licencia_f_dominio.pdf</label>

@@ -2,9 +2,6 @@
 
 ## SUBRUTINA PARA SUBIR LOS PDF DE LAS PATENTES
 
-$dominio = $_POST['dominio'];
-
-$fecha_patente = $_POST['fecha_patente'];
 
 $uploadDir = '../../images/';
 
